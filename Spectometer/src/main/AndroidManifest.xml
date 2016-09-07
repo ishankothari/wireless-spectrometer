@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="redx.mit.edu.spectrometer" >
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.write_external_storage"/>
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CustomCameraReadingActivity"
+            android:screenOrientation="portrait"
+            android:label="Capture Spectrum">
+        </activity>
+        <activity android:name=".OptionsActivity"
+            android:screenOrientation="portrait"
+            android:label="Options">
+        </activity>
+        <activity android:name=".GraphViewActivity"
+            android:label="Spectrum"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".OptionsActivity">
+        </activity>
+        <activity android:name=".DatabaseTestActivity"
+            android:screenOrientation="portrait"
+            android:label="Database Test">
+        </activity>
+        <activity android:name=".DarkCalibrationActivity"
+            android:screenOrientation="portrait"
+            android:label="Dark Calibration"
+            android:parentActivityName=".HomeActivity">
+        </activity>
+        <activity android:name=".PlotDarkGraphActivity"
+            android:label="Dark Calibration"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".HomeActivity">
+        </activity>
+        <activity android:name=".NewCameraTestActivity"
+        android:screenOrientation="landscape"
+        android:parentActivityName=".HomeActivity">
+        </activity>
+
+    </application>
+</manifest>

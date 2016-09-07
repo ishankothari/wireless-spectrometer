@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/jars/libs/internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/pre-dexed/debug/internal_impl-21.0.0_9a586ba668ef4756f850f610c655a105adb9c1b9.jar" />
+    </item>
+    <item
+        jar="/Users/ishankothari/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/pre-dexed/debug/support-annotations-21.0.0_d26f7db400e41316902784ee1eb7145885f007dd.jar" />
+    </item>
+    <item
+        jar="/Users/ishankothari/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.1.0/4ff6c33c920a399e4669cb0edd6668ef6dbe4988/MPAndroidChart-v2.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4ff6c33c920a399e4669cb0edd6668ef6dbe4988">
+        <dex dex="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.1.0_ee7c3831e8f7683697323fa2b6229901009a1eef.jar" />
+    </item>
+    <item
+        jar="/Users/ishankothari/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.9/9ce04e34240f674bc72680f8b843b1457383161a/commons-codec-1.9.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9ce04e34240f674bc72680f8b843b1457383161a">
+        <dex dex="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/pre-dexed/debug/commons-codec-1.9_45ce3c55d2593c8fd298796caddfb1c839b2dadd.jar" />
+    </item>
+    <item
+        jar="/Users/ishankothari/.gradle/caches/modules-2/files-2.1/org.apache.poi/poi/3.12/8be19a6a1fa08e934a497929f360111a4d2e5115/poi-3.12.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8be19a6a1fa08e934a497929f360111a4d2e5115">
+        <dex dex="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/pre-dexed/debug/poi-3.12_3db22deb26930d2915640b96bcefb80b100032aa.jar" />
+    </item>
+    <item
+        jar="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="95fd37732ec852e99f07eeb516a3650172f1d136">
+        <dex dex="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-21.0.0_815448ad5c45567ef9a85eab0fd2a0b7268f9798.jar" />
+    </item>
+    <item
+        jar="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="/Users/ishankothari/StudioProjects/Spectrometer/Spectometer/build/intermediates/pre-dexed/debug/com.android.support-support-v4-21.0.0_64ff6d0fbf51cef9e65ca120dd377dd7e1846c7d.jar" />
+    </item>
+
+</items>
