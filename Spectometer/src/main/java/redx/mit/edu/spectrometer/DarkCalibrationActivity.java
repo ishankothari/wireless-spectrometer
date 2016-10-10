@@ -1,9 +1,11 @@
 package redx.mit.edu.spectrometer;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -58,7 +61,6 @@ public class DarkCalibrationActivity extends ActionBarActivity implements View.O
     protected void onResume() {
         super.onResume();
         findBT();
-        openBT();
     }
 
     @Override
@@ -94,13 +96,12 @@ public class DarkCalibrationActivity extends ActionBarActivity implements View.O
         }
     }
 
-    void findBT()
-    {
+    void findBT() {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null) {
             bCaptureDarkReading.setEnabled(false);
             bCaptureDarkReading.setBackgroundColor(Color.parseColor("#F44336"));
-            Toast.makeText(this, "Bluetooth not available on your device", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bluetooth not available on your device",Toast.LENGTH_LONG).show();
         }
 
         if(!mBluetoothAdapter.isEnabled()) {
@@ -109,13 +110,46 @@ public class DarkCalibrationActivity extends ActionBarActivity implements View.O
         }
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        boolean deviceSelected = false;
+
         if(pairedDevices.size() > 0) {
+            final BluetoothDevice[] bluetoothDevices =  new BluetoothDevice[pairedDevices.size()];
+
+            AlertDialog.Builder alertDialogBuidler = new AlertDialog.Builder(this);
+            alertDialogBuidler.setTitle("Please select the paired spectrometer device.");
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.select_dialog_singlechoice);
+
+            int i = 0;
             for(BluetoothDevice device : pairedDevices) {
-                if(device.getName().equals("HC-05")) {
-                    mmDevice = device;
-                    break;
-                }
+                Log.d("Paired devices", i + " - " + device.getName());
+                arrayAdapter.add(device.getName());
+                bluetoothDevices[i++] = device;
             }
+
+            alertDialogBuidler.setNegativeButton("Close",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            ringProgressDialog.dismiss();
+                            finish();
+                        }
+                    });
+
+            alertDialogBuidler.setAdapter(arrayAdapter,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mmDevice = bluetoothDevices[i];
+                            openBT();
+                        }
+                    });
+            alertDialogBuidler.show();
+        }
+        else {
+            Toast.makeText(this, "No Bluetooth devices are paired.", Toast.LENGTH_LONG).show();
         }
     }
 

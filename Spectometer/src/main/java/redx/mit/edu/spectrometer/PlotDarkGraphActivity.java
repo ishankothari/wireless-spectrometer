@@ -63,7 +63,7 @@ public class PlotDarkGraphActivity extends ActionBarActivity implements View.OnC
                 editor.commit();
                 break;
         }
-        Intent intent = new Intent(PlotDarkGraphActivity.this,DarkCalibrationActivity.class);
+        Intent intent = new Intent(PlotDarkGraphActivity.this,HomeActivity.class);
         startActivity(intent);
     }
 

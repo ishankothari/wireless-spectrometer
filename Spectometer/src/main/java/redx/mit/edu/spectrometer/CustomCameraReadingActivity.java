@@ -1,18 +1,22 @@
 package redx.mit.edu.spectrometer;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -21,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 /**
@@ -93,7 +98,6 @@ public class CustomCameraReadingActivity extends ActionBarActivity implements Vi
         ringProgressDialog.setCancelable(false);
 
         findBT();
-        openBT();
     }
 
     @Override
@@ -142,22 +146,22 @@ public class CustomCameraReadingActivity extends ActionBarActivity implements Vi
         }
     }
 
-    public void switchViews(View oldView, View newView){
+    public void switchViews(View oldView, View newView) {
         oldView.setVisibility(View.GONE);
         try {
             Thread.sleep(700);
         }
         catch (InterruptedException e) {
 
-        }finally {
+        }
+        finally {
             newView.setVisibility(View.VISIBLE);
         }
     }
 
     void findBT() {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(mBluetoothAdapter == null)
-        {
+        if(mBluetoothAdapter == null) {
             bCaptureReferenceReading.setEnabled(false);
             bCaptureReferenceReading.setBackgroundColor(Color.parseColor("#F44336"));
 
@@ -166,23 +170,52 @@ public class CustomCameraReadingActivity extends ActionBarActivity implements Vi
             Toast.makeText(this, "Bluetooth not available on your device",Toast.LENGTH_LONG).show();
         }
 
-        if(!mBluetoothAdapter.isEnabled())
-        {
+        if(!mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.enable();
             while (!mBluetoothAdapter.isEnabled());
         }
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        if(pairedDevices.size() > 0)
-        {
-            for(BluetoothDevice device : pairedDevices)
-            {
-                if(device.getName().equals("HC-05"))
-                {
-                    mmDevice = device;
-                    break;
-                }
+        boolean deviceSelected = false;
+
+        if(pairedDevices.size() > 0) {
+            final BluetoothDevice[] bluetoothDevices =  new BluetoothDevice[pairedDevices.size()];
+
+            AlertDialog.Builder alertDialogBuidler = new AlertDialog.Builder(this);
+            alertDialogBuidler.setTitle("Please select the paired spectrometer device.");
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.select_dialog_singlechoice);
+
+            int i = 0;
+            for(BluetoothDevice device : pairedDevices) {
+                Log.d("Paired devices", i + " - " + device.getName());
+                arrayAdapter.add(device.getName());
+                bluetoothDevices[i++] = device;
             }
+
+            alertDialogBuidler.setNegativeButton("Close",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            ringProgressDialog.dismiss();
+                            finish();
+                        }
+                    });
+
+            alertDialogBuidler.setAdapter(arrayAdapter,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mmDevice = bluetoothDevices[i];
+                            openBT();
+                        }
+                    });
+            alertDialogBuidler.show();
+        }
+        else {
+            Toast.makeText(this, "No Bluetooth devices are paired.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -205,7 +238,8 @@ public class CustomCameraReadingActivity extends ActionBarActivity implements Vi
             bCaptureobjectReading.setBackgroundColor(Color.parseColor("#F44336"));
             Toast.makeText(this, "Error connecting to device, please ensure device is powered on and" +
                     " not already connected",Toast.LENGTH_LONG).show();
-        }finally {
+        }
+        finally {
             ringProgressDialog.dismiss();
         }
     }
